@@ -1,0 +1,190 @@
+. Redirection:
+ls > test.txt
+cat test.txt
+
+ls >> test.txt
+cat test.txt
+
+- searching spasswd in root dir which not allowed permission: redirect standard error
+find / -name  passwd -print
+
+- Now try to get permission which is import all files not allowed to access to error.txt file but print out the other on the screen
+find / -name  passwd -print 2> error.txt
+
+cat error.txt
+
+2. Special File
+
+- Redirect all the error to dev/null which you will never seen them again
+find / -name  passwd -print 2> /dev/null
+
+
+ls > /dev/null
+ls > /dev/zero
+
+dd if=/dev/zero of=zero.txt count=250
+
+- print all zero:
+xxd zero.txt | less
+
+- to see the file:
+ls -la zero.txt
+
+- Generate random number
+cat /dev/urandom
+
+3. How to listing the files:
+ls 
+ls -la
+
+ls -a
+- Display different listing
+ls -lah
+
+4. Dot file
+ls -la
+
+- Do not display the files start with dot
+ls .
+- Display ......
+ls ..
+
+copy everything to the file named ls1 and than try to how to access or display what is in the file:
+cp /bin/ls ls1
+ls1 NOT WORKING
+
+./ls1 
+
+5. File permission:
+. = current directory
+.. = directory above (parent directory)
+
+ls -la
+first called Group =-rw
+second called owner = r--
+last called world r--
+-rw-r--r--
+r = read which is 4
+w = write which is 2
+x = execute which is 1
+
+touch me
+ls -la me
+-rw-r--r-- me
+
+chmod 744 me
+ls -la me
+-rwxr--r-- me 
+
+chmod 662 me
+ls -la me
+-rw-rw--w-
+rw = 6
+w = 2
+xw = 3
+r-x = 5
+
+chmode u+x me
+ls -la
+-rwxrw--w-
+
+chmod g+x me
+-rwxrwx-w-
+
+chmod g-x me
+-rwxrw--w-
+
+6. File managemnet:
+rm = Permenant remove no return
+cd
+pwd
+mv me you
+mv me ../
+The promt command as you if you want to delete?
+rm -i me 
+
+7. Symbole of Links:
+create a link to the file which will display for the user where is located example:
+ln -s /etc/passwd passwd
+
+ls -la passwd
+passwd -> /etc/passwd
+here we have set up the link to the file passwd to remove the link use:
+rm passwd
+
+ln ls.txt lslik.txt
+ls -la lslink.txt
+lslink.txt
+
+ls lslink.txt
+lslink.txt
+
+ls ls.txt
+ls.txt
+
+now remove the link
+rm ls.txt
+display again
+ls -la lslink.txt
+
+display the file as red because has a link but it's broken
+
+ln -s /var/www/ web
+ls web
+- if is display red that means the /var/www not exisit?
+
+sudo mkdir /var/www
+ls web 
+display web -> /var/www/
+
+8. Comperssion file:
+- zip everyfile start with dilshad
+zip dilshad.zip dilshad*
+
+ls 
+dilshad.zip
+unzip dilshad.zip
+tar means tab archaive
+cf means create file
+tar cf dil.tar dil*
+
+- tar with coperssions
+tar cfz dil.tar.gz dil*
+
+tar cfzv dil.tar.gz dil*
+
+extracting the above file
+tar xfz dil.tar.gz
+
+xfz = execute file zipped
+
+tar xfzv dil.tar.zv
+
+9. File System:
+- bin: is a short for binary is where the program is live.
+- etc: is where all configuration file for different system and util.
+- boot: where the operating system is and all boot
+- cdrom: is mount of the location for file system joing te file system into this folder.
+- dev: is where all the devices are under linux every file get own device.
+- home: home directory for all useres
+- lib: different set of code
+- lib64: 
+- media: 
+- mnt:  Removable media
+- opt: Optional software
+- proc: Process related data
+- root: home dir
+- run: where temprorly data get stored
+- sbin: system binary
+- srv: place some peticular server
+- sys: system data
+- tmp: where swoup file store tempropalry data store
+- usr: all useres
+- var: any varibale data like log directory which change a lot.
+
+10. Path Variable: This where the system look for program executable or location 
+/> echo $PATH
+
+How to use it:
+export PATH=$PATH:~/bin 
+We will export the bin directory to the home directory
